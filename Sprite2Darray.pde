@@ -1,19 +1,22 @@
-/* Your Name, Date, Learning Goal */
+/* Rosa Martinez, 3/12/25,  Modify an existing program to customize a grid-based structure, practicing use of object-oriented programming and 2D array structure and syntax. Document code with comments and create a 
+simple HTML page to embed their Processing sketch and caption it, reinforcing both programming and web development skills. */
 // Add a comment to each "//" that you see. 
-int cols = 6;  // 
-int rows = 5;  // 
-Sprite[][] sprites; // 
+int cols = 6;  // array grids
+int rows = 5;  // array grids
+Sprite[][] sprites; // 2D array
+PImage gotham;
 
-int numFrames = 9;  // 
-PImage[] spriteFrames; // 
+int numFrames = 4;  // frame animation ammount
+PImage[] spriteFrames; // image import
 int frameDelay = 20;  // Speed of animation (higher = slower)
 
 void setup() {
-  size(500, 500);
-  loadSpriteFrames();  //
+  size(500, 450);
+  loadSpriteFrames();  // loading image
   sprites = new Sprite[cols][rows];
+  gotham=loadImage("gotham.jpg");
 
-  // 
+  // iterating through the arrays to fill with the sprite objects
 
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
@@ -25,9 +28,10 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  background(100);
+  image(gotham,0,0);
   
-  // 
+  // for loop iderating through the array once more and updating the value w/ the next sprite displaying the image
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       sprites[i][j].update();
@@ -36,11 +40,11 @@ void draw() {
   }
 }
 
-// 
+// loading in the sprites
 void loadSpriteFrames() {
   spriteFrames = new PImage[numFrames];
   for (int i = 0; i < numFrames; i++) {
-    spriteFrames[i] = loadImage("rabbit" + i + ".png"); // Ensure images are named _____0.png, _____1.png, etc.
+    spriteFrames[i] = loadImage("sprite_" + i + ".png"); // Ensure images are named _____0.png, _____1.png, etc.
   }
 }
 
@@ -49,8 +53,8 @@ class Sprite {
   float x, y;
   int currentFrame = 0;
   int frameCount = 0;
-  float size = 50; // 
-  float speedX = 0.75; // 
+  float size = 75; // the size of the image
+  float speedX = 0.75; // the speed of the image
 
   Sprite(float x, float y) {
     this.x = x;
@@ -59,7 +63,7 @@ class Sprite {
 
 
   void update() {
-    // 
+    // adding in order for the image to move across the screen
     frameCount++;
     if (frameCount % frameDelay == 0) {
         currentFrame = (currentFrame + 1) % numFrames;
@@ -68,7 +72,7 @@ class Sprite {
     // 
     x += speedX;
 
-    // 
+    // if statement for the x and y variables so that the image can move
     if (x >= width) {
         x -= width;  // Shift left by one full width to prevent gaps
     }
